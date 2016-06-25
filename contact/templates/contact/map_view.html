@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Сады морей — контактная информация{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="{% static "css/map.css" %}">
+{% endblock %}
+
+{% block logo %}
+    <a href="{% url "home" %}">
+        <img src="{% static 'images/contact-logo.png' %}" alt="Сады морей" class="logo">
+    </a>
+{% endblock %}
+
+{% block content %}
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAe4VkeXdUsowMSjF_2UidIKKe35GQFwVU&sensor=false"></script>
+    <div class="container-fluid" id="contact_page">
+        <div class="row-fluid contact-row">
+            <div class="span4">
+            <div class="nav-column pull-right">
+                <h3>Контактная информация</h3>
+                <div class="contact-list">
+                    {% for office in office_list %}
+                    <a class="office" href="#{{ office.slug }}" data-office="{{ office.slug }}">
+                        <h5>{{ office.name|safe }}</h5>
+                        <p class="address">{{ office.address }}</p>
+                        <p class="phone">{{ office.phone }}</p>
+                    </a>
+                    {% endfor %}
+                    <img src="{% static "images/finger.png" %}" class="pointer indefinite">
+                </div>
+            </div>
+            </div>
+            <div class="span8 map-holder">
+                {% for map in office_list %}
+                    <div class="map" id="map_{{ map.slug }}" data-office="{{ map.slug }}"></div>
+                {% endfor %}
+            </div>
+            <script>
+                $(function(){
+                    {% for map in office_list %}
+                        var coords_{{ map.slug }} = new google.maps.LatLng({{ map.lat }}, {{ map.lng }})
+                        var map_{{ map.slug }} = new google.maps.Map($("#map_{{ map.slug }}")[0],
+                                {
+                                    center: coords_{{ map.slug }},
+                                    zoom: {{ map.scale }},
+                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                })
+                        var infowindow_{{ map.slug }} = new google.maps.InfoWindow({
+                            content: '<h5>{{ map.name|safe }}</h5>{{ map.address }}<br>{{ map.phone }}'
+                        })
+                        var marker_{{ map.slug }} = new google.maps.Marker({
+                            position: coords_{{ map.slug }},
+                            map: map_{{ map.slug }},
+                            title: "{{ map.name }}"
+                        })
+                        google.maps.event.addListener(marker_{{ map.slug }}, 'click', function() {
+                            infowindow_{{ map.slug }}.open(map_{{ map.slug }},marker_{{ map.slug }})
+                        })
+                        infowindow_{{ map.slug }}.open(map_{{ map.slug }},marker_{{ map.slug }})
+                    {% endfor %}
+                })
+            </script>
+            <script src="{% static "js/map.js" %}"></script>
+        </div>
+    </div>
+{% endblock %}

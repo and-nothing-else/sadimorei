@@ -1,0 +1,21 @@
+{% extends "about.html" %}
+{% load staticfiles %}
+{% block main_content %}
+    <h1 class="text-center">
+        <img src="{% static 'images/sun.png' %}" class="sun">
+        Пресс-релизы
+        <img src="{% static 'images/moon.png' %}" class="moon">
+    </h1>
+    {% for article in articles %}
+        <article class="list">
+            <time>{{ article.date }}</time>
+            {% if article.text %}
+                <h4><a href="{{ article.get_absolute_url }}">{{ article.name }}</a></h4>
+            {% else %}
+                <h4>{{ article.name }}</h4>
+            {% endif %}
+            <div>{{ article.announce|safe }}</div>
+        </article>
+    {% endfor %}
+
+{% endblock %}

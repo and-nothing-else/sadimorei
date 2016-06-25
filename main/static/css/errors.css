@@ -1,0 +1,35 @@
+.middle_content {
+    padding: 50px 0 119px;
+    height: 100%;
+    display: table;
+    width: 100%;
+}
+
+.page_404 {
+    display: table-cell;
+    vertical-align: middle;
+}
+.page_404 a {
+    color: #0a84d1;
+}
+.page_404 .number {
+    font-size: 320px;
+    height: 320px;
+    line-height: 338px;
+    color: #ddddde;
+}
+.page_404 .not_found {
+    color: #000006;
+    font-size: 24px;
+}
+.page_404 .go_back {
+    color: #000006;
+    font-size: 16px;
+}
+.page_500 {background:url("../images/500_sm.jpg") center no-repeat;}
+
+.error {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}

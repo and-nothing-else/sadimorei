@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block logo %}
+    <img src="{% static 'images/logo.png' %}" alt="Сады морей" class="logo">
+{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="{% static "css/reasons.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="reasons">
+        <div class="iosSlider reason-list" id="reason-list">
+            <div class="slider">
+                {% for slide in reasons %}
+                    <div class="slide" style="background-image: url({{ slide.image.url }})">
+                        <div class="reason-description-place">
+                        <div class="reason-description">
+                        {% if slide.number %}
+                            <div class="reason-number">{{ slide.number }}</div>
+                        {% endif %}
+                        {% if slide.name %}
+                            <div class="reason-name">
+                            <div style="{% if slide.nameFontSize %}font-size: {{ slide.nameFontSize }}px; {% endif %}{% if slide.nameLetterSpacing %}letter-spacing: {{ slide.nameLetterSpacing }}px{% endif %}">
+                                {{ slide.name }}
+                            </div></div>
+                        {% endif %}
+                        {% if slide.linkText and slide.text %}
+                            <a rel="readmore" href="#reason{{ slide.number }}" class="reason-read-more-link">{{ slide.linkText }}</a>
+                            <div class="reason-description-text">{% if slide.name %}<h2>{{ slide.name }}</h2>{% endif %}<div class="reason-description-article">{{ slide.text|safe }}</div></div>
+                        {% endif %}
+                        </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button class="button prev"></button>
+        <button class="button next"></button>
+        <script src="{% static "js/jquery.easing.1.3.js" %}"></script>
+        <script src="{% static "js/jquery.iosslider.min.js" %}"></script>
+        <script src="{% static "js/reasons.js" %}"></script>
+        <div class="reasons-label">10 причин,<br>по которым вам это понравится</div>
+    </div>
+{% endblock %}

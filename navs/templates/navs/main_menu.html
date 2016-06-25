@@ -1,0 +1,5 @@
+<ul class="mainmenu">
+{% for item in items %}
+    <li{% if item.is_current %} class="active"{% endif %}><a href="{{ item.href }}">{{ item.text }}</a></li>
+{% endfor %}
+</ul>

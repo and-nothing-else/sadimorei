@@ -1,0 +1,10 @@
+<div class="about_menu text-center">
+    <h3>О проекте</h3>
+    <ul class="section_menu unstyled">
+        {% for item in items %}
+        <li{% if item.is_current %} class="active"{% endif %}>
+            <a href="{{ item.href }}">{{ item.text }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

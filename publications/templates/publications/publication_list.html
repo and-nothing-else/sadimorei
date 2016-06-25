@@ -1,0 +1,25 @@
+{% extends 'about.html' %}
+{% load staticfiles thumbnail %}
+{% block main_content %}
+    <h1 class="text-center">
+        <img src="{% static 'images/sun.png' %}" class="sun">
+        Публикации
+        <img src="{% static 'images/moon.png' %}" class="moon">
+    </h1>
+    <ul class="media-list">
+    {% for article in publications %}
+        <li class="media">
+            <a target="_blank" href="{{ article.link }}" class="pull-left">
+                {% thumbnail article.get_source.logo "100x100" as im %}
+                <img src="{{ im.url }}" alt="{{ article.get_source.name }}" title="{{ article.get_source.name }}" class="media-object thumbnail">
+                {% endthumbnail %}
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading"><a target="_blank" href="{{ article.link }}">{{ article.name }}</a></h4>
+                <time>{{ article.date }}</time>
+                <p><a href="{{ article.get_source.link }}">{{ article.get_source.name }}</a></p>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

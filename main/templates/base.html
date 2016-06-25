@@ -1,0 +1,75 @@
+{% load staticfiles nav_tags contact_tags gallery_tags %}<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>{% block title %}Сады морей{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'js/fancybox/jquery.fancybox.css' %}">
+<link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
+<link rel="icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/fancybox/jquery.fancybox.pack.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% block page_css %}{% endblock %}
+<body>
+<header class="pagehead navbar navbar-fixed-top">
+    <div class="container head-content">
+        <div class="row">
+            <div class="span4 text-center">
+            {% block logo %}
+                <a href="{% url "home" %}">
+                    <img src="{% static 'images/logo2.png' %}" alt="Сады морей" class="logo">
+                </a>
+            {% endblock %}
+            </div>
+            <div class="span8">
+                {% main_menu %}
+            </div>
+        </div>
+        <div class="submenu">
+            <div class="row">
+                <div class="span4 text-center">
+                    <h5>Коллекция прибрежных апартаментов</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    {% sub_menu %}
+                </div>
+                <div class="span3">
+                    <h3><a href="{% url "gallery:index" %}">ФОТОАЛЬБОМ</a></h3>
+                    <a href="{% url "gallery:index" %}">
+                        {% random_photos %}
+                    </a>
+{#                    <h3><a href="#">Прямая Трансляция</a></h3>#}
+{#                    <p>Трансляция с веб-камер, установленных<br> в Коллекции прибрежных<br> апартаментов «Сады Морей»</p>#}
+                </div>
+                <div class="span4 section_contact_info">
+                    <h3><a href="/contact/">Контактная информация</a></h3>
+                    {% office_info "moscow" %}
+                    {% office_info "gelendzhik" %}
+                </div>
+            </div>
+        </div>
+        <button class="btn-link menu-expand" id="menu-expand"><img src="{% static 'images/menu_down.png' %}"></button>
+    </div>
+</header>
+
+<div class="middle_content">
+
+{% block content %}
+    {% block h1 %}{% endblock %}
+{% endblock %}
+</div>
+<footer class="pagefoot">
+    <div class="container">
+        <div class="contact row">
+            <div class="span4 text-left">{% office_link "moscow" %}</div>
+            <div class="span4 text-center">{% office_link "gelendzhik" %}</div>
+            <div class="span4 text-right"><a id="feedback_link" href="{% url "feedback:form" %}">Обратная связь</a></div>
+        </div>
+        <p class="copyright text-center">© 2008-2013, ООО «Инвестгрупп»</p>
+    </div>
+</footer>
+</body>
+{# шаблон надо будет потом переписать, сделать контейнер для информационных страниц #}

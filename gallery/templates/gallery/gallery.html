@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles thumbnail %}
+{% block page_css %}
+    <link rel="stylesheet" href="{% static "css/gallery.css" %}">
+    <script src="{% static "js/jquery.easing.1.3.js" %}"></script>
+    <script src="{% static "js/jquery.iosslider.min.js" %}"></script>
+    <script src="{% static "js/gallery.js" %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="gallery" id="gallery">
+        <div class="large-photos">
+            <div class="iosSlider">
+                <div class="slider">
+                    {% for photo in photo_list %}
+                    <div class="slide" style="background-image: url({{ photo.photo.url }})">
+                    <div class="description">
+                        {{ photo.name }}
+                        {% if photo.description %}<div>{{ photo.description }}</div>{% endif %}
+                    </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="small-photos">
+            <div class="iosSlider">
+                <div class="slider">
+                    {% for photo in photo_list %}
+                        {% thumbnail photo.photo "x78" as im %}
+                            <div class="button">
+                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                            </div>
+                        {% endthumbnail %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

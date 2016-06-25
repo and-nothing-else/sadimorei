@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load staticfiles thumbnail %}
+{% block page_css %}
+    <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU"></script>
+    <link rel="stylesheet" href="{% static "css/ui-lightness/jquery-ui-1.10.3.custom.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/apartments.css" %}">
+    <link rel="stylesheet" href="{% static "css/gallery.css" %}">
+    <link rel="stylesheet" href="{% static "css/print.css" %}" media="print">
+    <script src="{% static "js/jquery-ui-1.10.3.custom.min.js" %}"></script>
+    <script src="{% static "js/jquery.iosslider.min.js" %}"></script>
+    <script src="{% static "js/apartments.js" %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="apt-app">
+        <div class="building-section">
+            <div class="building-section-content">
+                <h5>Главный корпус</h5>
+                <ul class="building-list">
+                {% for building in data %}
+                    <li data-building="{{ building.code }}"><a href="#{{ building.code }}">{{ building.name }}</a></li>
+                    {% if forloop.first %}
+                    </ul>
+                    <h5>Отдельно стоящие корпуса</h5>
+                    <ul class="building-list">
+                    {% endif %}
+                {% endfor %}
+                </ul>
+                <div class="arrow_place">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="building-info">
+            <div class="building-info-item selected map" id="map"></div>
+            {% for building in data %}
+                <div class="building-info-item" data-building="{{ building.code }}">
+                    <div class="building-menu">
+                        <div class="focus"></div>
+                        <ul class="unstyled">
+                            <li class="description selected"><a href="#{{ building.code }}/description" data-type="description">Описание</a></li>
+                            <li class="photos"><a href="#{{ building.code }}/photos" data-type="photos">Фотографии</a></li>
+                            <li class="apartments"><a href="#{{ building.code }}/apartments" data-type="apartments">Апартаменты</a></li>
+                        </ul>
+                    </div>
+                    <div class="building-info-pages">
+                        <div class="building-info-page description selected">
+                            <h2>{{ building.description_title }}</h2>
+                            <article>{{ building.description|safe }}</article>
+                        </div>
+                        <div class="building-info-page photos gallery">
+                            <div class="large-photos">
+                            <div class="iosSlider">
+                                <div class="slider">
+                                    <div class="slide" style="background-image: url({{ building.photo.url }})"></div>
+                                    {% for photo in building.buildingphoto_set.all %}
+                                    <div class="slide" style="background-image: url({{ photo.photo.url }})">
+                                    <div class="description">
+                                        {{ photo.name }}
+                                        {% if photo.description %}<div>{{ photo.description }}</div>{% endif %}
+                                    </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            </div>
+                            <div class="small-photos">
+                            <div class="iosSlider">
+                                <div class="slider">
+                                {% thumbnail building.photo "x78" as im %}
+                                    <div class="button selected">
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                    </div>
+                                {% endthumbnail %}
+                                    {% for photo in building.buildingphoto_set.all %}
+                                        {% thumbnail photo.photo "x78" as im %}
+                                            <div class="button">
+                                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                            </div>
+                                        {% endthumbnail %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="building-info-page apartments">
+                            <div class="apt-list-head">
+                                <table class="table">
+                                    <thead><tr class="filter-head">
+                                        <th class="filter-part-id"><div class="text-center"><input class="filter-code" id="filter-code"></div></th>
+                                        <th class="filter-part status">
+                                            <div rel="popover" class="text-center filter-trigger">
+                                                Статус
+                                                <div class="value" data-default="показывать все">показывать все</div>
+                                            </div>
+                                            <div class="hide popover-content">
+                                                <label class="checkbox"><input type="checkbox" data-status="0" class="filter-status"> доступна</label>
+                                                <label class="checkbox"><input type="checkbox" data-status="1" class="filter-status"> забронирована</label>
+                                                <label class="checkbox"><input type="checkbox" data-status="2" class="filter-status"> продана</label>
+                                                <div class="text-center">
+                                                    <button class="ok">ok</button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th class="filter-part square">
+                                            <div rel="popover" class="text-center filter-trigger">
+                                                Площадь
+                                                <div class="value" data-default="показывать все">показывать все</div>
+                                            </div>
+                                            <div class="hide popover-content">
+                                                <div class="slider-place">
+                                                    <div class="slider"></div>
+                                                    <div class="min-value"></div>
+                                                    <div class="max-value"></div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button class="ok">ok</button>
+                                                </div>
+                                            </div></th>
+                                        <th class="filter-part layout">
+                                            <div rel="popover" class="text-center filter-trigger">
+                                                Планировка
+                                                <div class="value" data-default="показывать все">показывать все</div>
+                                            </div>
+                                            <div class="hide popover-content">
+                                                <fieldset class="layouts"><div class="row-fluid">
+                                                    <div class="span6">
+                                                        <label class="checkbox"><input type="checkbox" data-layout="1" class="filter-layout"> Студийная</label>
+                                                        <label class="checkbox"><input type="checkbox" data-layout="2" class="filter-layout"> 2-комнатные</label>
+                                                        <label class="checkbox"><input type="checkbox" data-layout="3" class="filter-layout"> 3-комнатные</label>
+                                                        <label class="checkbox"><input type="checkbox" data-layout="4" class="filter-layout"> Свободная</label>
+                                                        <label class="checkbox"><input type="checkbox" data-layout="5" class="filter-layout"> 2-уровневая</label>
+                                                    </div>
+                                                    <div class="span6">
+                                                        <label class="checkbox"><input type="checkbox" data-plus="sea" class="filter-sea"> Вид на море</label>
+                                                        <label class="checkbox"><input type="checkbox" data-plus="terrace" class="filter-terrace"> Терраса</label>
+                                                        <label class="checkbox"><input type="checkbox" data-plus="lawn" class="filter-lawn"> Лужайка</label>
+                                                    </div>
+                                                </div></fieldset>
+                                                <div class="text-center">
+                                                    <button class="ok">ok</button>
+                                                </div>
+                                            </div></th>
+                                        <th class="filter-part price">
+                                            <div class="price-trigger filter-trigger text-center">
+                                                Цена
+                                                <div class="value" data-default="показывать все">показывать все</div>
+                                                <div rel="popover" class="price-trigger-c1"><div class="price-trigger-c2"></div></div>
+                                            </div>
+                                            <div class="hide popover-content">
+                                                <div class="slider-place">
+                                                    <div class="slider"></div>
+                                                    <div class="min-value"></div>
+                                                    <div class="max-value"></div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button class="ok">ok</button>
+                                                </div>
+                                            </div></th>
+                                    </tr></thead>
+                                </table>
+                            </div>
+                            <div class="apt-list-content"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="apt-info" id="apt-info"></div>
+        </div>
+    </div>
+{% endblock %}

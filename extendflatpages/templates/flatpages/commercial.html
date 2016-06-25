@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+    {{ flatpage.title }}
+{% endblock %}
+
+{% block page_css %}
+    <link rel="stylesheet" href="{% static "css/commercial.css" %}">
+{% endblock %}
+
+{% block logo %}
+    <a href="{% url "home" %}">
+        <img src="{% static 'images/commerc-logo.png' %}" alt="Сады морей" class="logo">
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div class="commercial-image">
+    <h1>Красивый<br>бизнес</h1>
+    <div class="partners-content">
+    {{ flatpage.content }}
+    <p>Посмотрите <a id="c_schema" href="{% static "images/SM_commerce-plan-2014-04-14.jpg" %}">схему помещений</a>, или <a id="feedback_commercial" href="{% url "feedback:form" %}">свяжитесь с нами</a> для серъезного разговора.</p>
+        <script>$(function(){$('#c_schema').fancybox(
+                {
+                    "padding": [10,30,100,30]
+                }
+        )})</script>
+    </div>
+    </div>
+{% endblock %}

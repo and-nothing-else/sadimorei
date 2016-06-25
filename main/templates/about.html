@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n nav_tags staticfiles %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <aside class="span4">
+            {% sub_menu %}
+        </aside>
+        <div class="span8">
+            {% block main_content %}
+            {%  endblock %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

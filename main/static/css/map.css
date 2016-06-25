@@ -1,0 +1,79 @@
+.middle_content {
+    height: 100%;
+    padding-top: 60px;
+    padding-bottom: 82px;
+}
+
+#contact_page,
+#contact_page>.contact-row {
+    height: 100%;
+}
+#contact_page .map-holder {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+    /* fix bootstrap gmap breaking */
+    #contact_page .map-holder img { max-width: none; }
+    #contact_page .map-holder label { width: auto; display:inline; }
+.map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+    .map.active {
+        top: 0;
+    }
+    .map h5 {
+        margin-top: 0;
+    }
+
+#contact_page h3 {
+    font-family: 'PT Sans Narrow Bold', sans-serif;
+    color: #011847;
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 30px 0 24px 0;
+}
+#contact_page .nav-column {
+    text-align: left;
+}
+.contact-list {
+    padding: 0 0 13px 0;
+    background: url("../images/contact-ship.png") center bottom no-repeat;
+    position: relative;
+}
+.contact-list a {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000000;
+    display: block;
+    margin:0 0 32px 0;
+}
+    .contact-list h5 {
+        margin: 0 0 2px 0;
+        font-size: 12px;
+        font-family: 'PT Sans Narrow', sans-serif;
+        font-weight: normal;
+    }
+    .contact-list p {
+        margin: 0 0 2px 0;
+    }
+    .contact-list a.active { cursor: default; }
+    .contact-list a.active h5 { font-family: 'PT Sans Narrow Bold', sans-serif; }
+    .contact-list a:hover h5, .contact-list a:hover p.phone  { color: #42464d; }
+    .contact-list a.active p.address, .contact-list a:hover p.address { color: #000000; }
+    .contact-list p.address { color: #3366cc; }
+    .contact-list a:hover { text-decoration: none; }
+
+.contact-list .pointer {
+    display: none;
+    position: absolute;
+    left: -36px;
+}

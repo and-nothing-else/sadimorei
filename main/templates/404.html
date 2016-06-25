@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block page_css %}
+    <link rel="stylesheet" href="{% static "css/errors.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="page_404 error text-center">
+    <div class="number">404</div>
+    <p class="not_found">Мы не нашли такой страницы</p>
+    <p class="go_back">Вы можете вернуться <a href="/">на главную</a>, или <a href="{% url "feedback:form" %}" id="feedback_er404">сообщить нам об ошибке</a>, если такая страница должна сущестовать.</p>
+    </div>
+{% endblock %}

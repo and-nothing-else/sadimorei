@@ -1,0 +1,40 @@
+{% load humanize static contact_tags thumbnail %}
+{% if apartment %}
+    <header class="text-center">
+
+        <h1>Апартаменты {{ apartment.code }}</h1>
+        <h4>{{ apartment.layout_type }} {{ apartment.square }} м<sup>2</sup>
+        {% if apartment.loggia_square %}
+            + лоджия {{ apartment.loggia_square }} м<sup>2</sup>
+        {% endif %}</h4>
+        <p>{{ apartment.floor }} этаж{% if apartment.mansard %}, мансарда{% endif %}</p>
+    </header>
+    <article class="description">{{ apartment.get_apartment_description|safe }}</article>
+    {% if apartment.status == 0 %}
+        <p class="price text-center">{{ apartment.price|intcomma }} ⃆</p>
+    {% else %}
+        <p class="status text-center {% if apartment.status == 0 %}text-success{% else %}text-error{% endif %}">{{ apartment.get_status_display }}</p>
+    {% endif %}
+    <div class="text-center"><br>
+        {% thumbnail apartment.get_placement_image "600" upscale=False format='PNG' as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+        <br><br>
+        {% thumbnail apartment.get_layout_image "600" upscale=False format='PNG' as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+    </div>
+{% else %}
+    <p class="alert alert-error">Нет такого</p>
+ <a href="javascript:window.print();void(0)" class="print">распечатать схему</a>
+    <div class="footer-print">
+        <div class="row-fluid">
+            <div class="logo span6"><img src="{% static 'images/logo2.png' %}"></div>
+            <div class="span6 text-right">
+                {% office_label "moscow" %}<br>
+                {% office_label "gelendzhik" %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+    <a href="#close" class="close"></a>

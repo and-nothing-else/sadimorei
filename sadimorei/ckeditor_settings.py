@@ -1,0 +1,46 @@
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],
+            ['Format', 'PasteText', 'PasteFromWord'],
+
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ['Link', 'Unlink', 'Anchor', 'Image'],
+            {
+                'name': 'paragraph',
+                'groups': ['list', 'indent', 'blocks', 'align'],
+                'items': ['NumberedList', 'BulletedList', '-',
+                          'Outdent', 'Indent', '-', 'Blockquote']
+            },
+            ['Source'],
+            ['Maximize'],
+        ],
+        'width': '100%',
+        'forcePasteAsPlainText': True
+        # 'enterMode': 2,
+    },
+    'minimal': {
+        'height': 100,
+        'toolbar': [
+            ['RemoveFormat', 'PasteText', 'PasteFromWord'],
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ['Link', 'Unlink', 'Anchor', 'Image'],
+            {
+                'name': 'paragraph',
+                'groups': ['list', 'indent', 'blocks', 'align'],
+                'items': ['NumberedList', 'BulletedList', '-',
+                          'Outdent', 'Indent', '-', 'Blockquote']
+            },
+            ['Source'],
+            ['Maximize'],
+        ],
+        'width': '100%',
+        'forcePasteAsPlainText': True
+        # 'enterMode': 2,
+    },
+}

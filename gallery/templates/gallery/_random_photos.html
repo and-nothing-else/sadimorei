@@ -1,0 +1,6 @@
+{% load thumbnail %}
+{% for photo in photos %}
+    {% thumbnail photo.photo "80x60" crop="center" as im %}
+        <img src="{{ im.url }}">
+    {% endthumbnail %}
+{% endfor %}

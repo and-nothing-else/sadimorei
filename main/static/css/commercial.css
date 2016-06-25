@@ -1,0 +1,46 @@
+.middle_content {
+    padding: 60px 0 82px 0;
+    height: 100%;
+}
+    .middle_content h1 {
+        text-align: center;
+        color: #ffffff;
+        font-family: 'PFBeauSansPro-XThin';
+        font-size: 120px;
+        line-height: 130px;
+        letter-spacing: 15px;
+        margin: 0;
+    }
+.commercial-image {
+    background: url("../images/Commerce-bg.jpg") center no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    min-height: 900px;
+    padding: 96px 0 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.partners-content {
+    width: 654px;
+    background: rgba(0,0,0,.75);
+    margin: 0 auto 16px auto;
+    padding: 22px 53px;
+    font-size: 18px;
+    color: #ffffff;
+    font-family: 'PT Sans Narrow';
+    line-height: 23px;
+    letter-spacing: 1px;
+    text-align: center;
+    font-weight: 300;
+}
+    .partners-content a { color: #ffffff; text-decoration: underline; }
+    .partners { margin-bottom: 20px; }
+    .partners img { padding-left: 44px; }
+
+body .fancybox-opened .fancybox-skin {
+    box-shadow: 0 0 10px rgba(31,31,30,.75);
+    background: #ffffff;
+}
+body legend { text-align: center; }
+body form.container { max-width: 700px;padding-bottom: 40px; }

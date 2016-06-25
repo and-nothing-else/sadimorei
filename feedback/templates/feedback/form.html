@@ -1,0 +1,28 @@
+{% extends parent_template %}
+{% load staticfiles %}
+{% block title %}Сады морей — обратная связь{% endblock %}
+{% block content %}
+    <form action="{% url "feedback:form" %}" method="post" class="container form-horizontal" id="feedback_form">
+        <legend>Напишите нам</legend>
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="control-group{% if field.errors %} error{% endif %}">
+                <label class="control-label" for="id_{{ field.html_name }}">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="help-inline pull-right">{{ field.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+            </div>
+        </div>
+    </form>
+    <script src="{% static "js/jquery.form.js" %}"></script>
+    <script src="{% static "js/feedback.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "about.html" %}
+{% load thumbnail staticfiles %}
+
+{% block page_css %}
+    <link rel="stylesheet" href="{% static "css/docs.css" %}">
+    <script src="{% static "js/docs.js" %}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="text-center doc_header">
+        <h1>Документация</h1>
+        <h3>Свидетельства о государственной регистрации права</h3>
+        <p>(цветные сканы оригиналов, JPG. 700 KB)</p>
+    </div>
+    <div class="clearfix all_certificates">
+        {% thumbnail certificates.0.image "108x144" as im %}
+        <div class="wrap-certificate pull-left"><img src="{{ im.url }}"></div>
+        {% endthumbnail %}
+        <ul class="pull-left certificates">
+        {% for certificate in certificates %}
+            <li><span>— </span><a href="{{ certificate.image.url }}" class="fancybox" rel="certificate">{{ certificate.name }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    <h3 class="text-center">Прочие документы</h3>
+    <div class="row-fluid">
+    {% for doc in docs %}
+        <div class="span4 other_docs text-center">
+            {% thumbnail doc.preview "200x200" as im %}
+                <img src="{{ im.url }}">
+            {% endthumbnail %}
+            <a href="{{ doc.file.url }}" target="_blank">{{ doc.name }}</a>
+            {% if doc.tech_info %}
+                <p>({{ doc.tech_info }})</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

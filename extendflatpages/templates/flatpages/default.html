@@ -1,0 +1,17 @@
+{% extends 'about.html' %}
+{% load staticfiles %}
+{% block title %}
+    {{ flatpage.title }}
+{% endblock %}
+
+{% block main_content %}
+{% block h1 %}
+    <h1 class="text-center">
+    <img src="{% static 'images/sun.png' %}" class="sun">
+        {{ flatpage.title }}
+    <img src="{% static 'images/moon.png' %}" class="moon">
+    </h1>
+{% endblock %}
+    <div class="article">{{ flatpage.content }}</div>
+
+{% endblock %}

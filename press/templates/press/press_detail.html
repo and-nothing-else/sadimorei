@@ -1,0 +1,21 @@
+{% extends "about.html" %}
+{% load staticfiles %}
+{% block main_content %}
+    <h1 class="text-center">
+        <img src="{% static 'images/sun.png' %}" class="sun">
+        Пресс-релизы
+        <img src="{% static 'images/moon.png' %}" class="moon">
+    </h1>
+    <article>
+        <h4>{{ article.name }}</h4>
+        <time>{{ article.date }}</time>
+        <div class="article_text">
+            {% if article.text %}
+                {{ article.text|safe }}
+            {% else %}
+                {{ article.announce|safe }}
+            {% endif %}
+        </div>
+        <a href="{% url 'press:list'%}">к списку пресс-релизов</a>
+    </article>
+{% endblock %}
