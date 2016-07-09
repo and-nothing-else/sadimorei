@@ -1,4 +1,4 @@
-{% load staticfiles nav_tags contact_tags gallery_tags %}<!DOCTYPE html>
+{% load staticfiles nav_tags contact_tags gallery_tags copyright %}<!DOCTYPE html>
 <meta charset="UTF-8">
 <title>{% block title %}Сады морей{% endblock %}</title>
 <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -68,7 +68,7 @@
             <div class="span4 text-center">{% office_link "gelendzhik" %}</div>
             <div class="span4 text-right"><a id="feedback_link" href="{% url "feedback:form" %}">Обратная связь</a></div>
         </div>
-        <p class="copyright text-center">© 2008-2013, ООО «Инвестгрупп»</p>
+        {% copyright_block %}
     </div>
 </footer>
 </body>
